@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: fairshare-backend
+    env: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -Dspring.profiles.active=prod -jar target/backend-0.0.1-SNAPSHOT.jar
+    plan: free
+    healthCheckPath: /api/auth/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+    autoDeploy: true
