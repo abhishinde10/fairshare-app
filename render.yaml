@@ -1,13 +1,13 @@
 services:
   - type: web
     name: fairshare-backend
-    env: java
+    runtime: docker
     region: oregon
     plan: free
     branch: main
     rootDir: backend
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -Dspring.profiles.active=prod -jar target/*.jar
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     envVars:
       - key: DATABASE_URL
         sync: false
