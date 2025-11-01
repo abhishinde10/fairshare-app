@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: fairshare-backend
+    env: java
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: backend
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -Dspring.profiles.active=prod -jar target/*.jar
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: PORT
+        value: 8080
+      - key: JAVA_VERSION
+        value: 17
+    healthCheckPath: /actuator/health
+    autoDeploy: true
